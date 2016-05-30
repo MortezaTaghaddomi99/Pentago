@@ -1,3 +1,5 @@
+import com.sun.org.glassfish.gmbal.GmbalException;
+
 import java.util.Scanner;
 
 public class Game {
@@ -8,6 +10,13 @@ public class Game {
     private boolean isWon;
     private boolean isWonOne;
     private boolean isWonTwo;
+
+    public static void main(String[] args) {
+
+        Game game = new Game();
+        game.play();
+
+    }
 
     public Game(){
         Scanner scanner = new Scanner(System.in);

@@ -6,11 +6,18 @@ public class Board {
     private Corner dR;
 
     public Board(){
-        board = new Slot[6][6];
+
         uL = new Corner();
         uR = new Corner();
         dL = new Corner();
         dR = new Corner();
+
+        board = new Slot[6][6];
+        for (int i = 0; i < board.length; i++){
+            for (int j = 0; j < board[0].length; j++){
+                board[i][j] = new Slot(i, j);
+            }
+        }
         turn();
     }
 
@@ -47,13 +54,13 @@ public class Board {
         String description = "";
         for (int i = 0; i < board.length; i++){
             for (int j = 0; j < board.length; j++){
-                if (board[i][j].getSlot().equals("black")){
+                if (board[i][j].getSlot() == Slot.SlotType.BLACK){
                     description += "B ";
                 }
-                else if (board[i][j].getSlot().equals("white")){
+                else if (board[i][j].getSlot() == Slot.SlotType.WHITE){
                     description += "W ";
                 }
-                else if (board[i][j].getSlot().equals("empty")){
+                else if (board[i][j].getSlot() == Slot.SlotType.EMPTY){
                     description += "O ";
                 }
             }

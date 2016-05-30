@@ -4,7 +4,7 @@ public class Corner {
     public Corner(){
         slots = new Slot[3][3];
         for (int i = 0; i < slots.length; i++){
-            for (int j = 0; i < slots[0].length; i++){
+            for (int j = 0; j < slots[0].length; j++){
                 slots[i][j] = new Slot(i, j);
             }
         }
