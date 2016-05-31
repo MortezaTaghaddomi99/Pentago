@@ -53,10 +53,13 @@ public class Game {
                 System.out.println("Player one will play now.");
                 Slot input = one.play();
                 board.setCornerSlot(input);
+                board.turn();
             }
             else {
                 System.out.println("Player two will play now.");
-                two.play();
+                Slot input = two.play();
+                board.setCornerSlot(input);
+                board.turn();
             }
             isWonOne = board.isWon(one);
             isWonTwo = board.isWon(two);

@@ -25,7 +25,18 @@ public class Board {
     }
 
     public void setCornerSlot(Slot slot){
-
+        if (slot.getQuadrant() == uL.getQuadrant()){
+            uL.setSlot(slot);
+        }
+        else if (slot.getQuadrant() == uR.getQuadrant()){
+            uR.setSlot(slot);
+        }
+        else if (slot.getQuadrant() == dL.getQuadrant()){
+            dL.setSlot(slot);
+        }
+        else if (slot.getQuadrant() == dR.getQuadrant()){
+            dR.setSlot(slot);
+        }
     }
 
     public void turn(){
@@ -82,6 +93,7 @@ public class Board {
 
         //check rows
         for (int i = 0; i < board.length; i++){
+            count = 0;
             for (int j = 0; j < board.length - 1; j++){
                 if (board[i][j].getSlot() == color){
                     count++;
@@ -89,21 +101,33 @@ public class Board {
                 else {
                     count = 0;
                 }
+                if (count == 5){
+                    return true;
+                }
             }
         }
 
-        if (count == 5){
-            return true;
-        }
-
         //check verticals
-
+        for (int i = 0; i < board.length; i++){
+            count = 0;
+            for (int j = 0; j < board.length - 1; j++){
+                if (board[j][i].getSlot() == color){
+                    count++;
+                }
+                else {
+                    count = 0;
+                }
+                if (count == 5){
+                    return true;
+                }
+            }
+        }
 
         //check diagonals
         for (int k = 0; k < 2; k++){
             for (int j = 0; j < 2; j++){
                 count = 0;
-                for (int i = 0; i < board.length-1; i++){
+                for (int i = 0; i < board.length-1-k; i++){
                     if (!(board[i+k][i+j+k].isEmpty())){
                         if (board[i+k][i+j+k].getSlot() == color){
                             count++;
@@ -115,8 +139,6 @@ public class Board {
                 }
             }
         }
-
         return false;
     }
-
 }

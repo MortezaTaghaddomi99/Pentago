@@ -45,4 +45,6 @@ public class Corner {
 
     public void setSlot(Slot slot){slots[slot.getX_coord()][slot.getY_coord()] = slot;}
 
+    public Slot.Quadrant getQuadrant(){return quadrant; }
+
 }
