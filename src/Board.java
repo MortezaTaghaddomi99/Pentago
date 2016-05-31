@@ -1,3 +1,5 @@
+import sun.invoke.empty.Empty;
+
 public class Board {
     private Slot[][] board;
     private Corner uL;
@@ -7,18 +9,23 @@ public class Board {
 
     public Board(){
 
-        uL = new Corner();
-        uR = new Corner();
-        dL = new Corner();
-        dR = new Corner();
+        uL = new Corner(Slot.Quadrant.UL);
+        uR = new Corner(Slot.Quadrant.UR);
+        dL = new Corner(Slot.Quadrant.DL);
+        dR = new Corner(Slot.Quadrant.DR);
 
         board = new Slot[6][6];
-        for (int i = 0; i < board.length; i++){
-            for (int j = 0; j < board[0].length; j++){
-                board[i][j] = new Slot(i, j);
+
+        for (int i = 0; i < uL.getSize(); i++){
+            for (int j = 0; j < uL.getSize(); j++){
+                uL.setSlot(new Slot(i, j, Slot.Quadrant.UL));
             }
         }
         turn();
+    }
+
+    public void setCornerSlot(Slot slot){
+
     }
 
     public void turn(){
@@ -71,11 +78,12 @@ public class Board {
 
     public boolean isWon(Player player){
         int count = 0;
+        Slot.SlotType color = player.getColor();
 
         //check rows
         for (int i = 0; i < board.length; i++){
             for (int j = 0; j < board.length - 1; j++){
-                if (board[i][j].getSlot() == board[i][j+1].getSlot()){
+                if (board[i][j].getSlot() == color){
                     count++;
                 }
                 else {
@@ -84,19 +92,26 @@ public class Board {
             }
         }
 
+        if (count == 5){
+            return true;
+        }
+
         //check verticals
 
 
         //check diagonals
-        for (int j = -1; j < 2; j++){
-            for (int i = 0; i < board.length-1; i++){
-                if ((board[i+1][i+j+1] != null) && (board[i][i+j] != null)){
-                    if (board[i][i+j] == board[i][i+j+1]){
-                        count++;
+        for (int k = 0; k < 2; k++){
+            for (int j = 0; j < 2; j++){
+                count = 0;
+                for (int i = 0; i < board.length-1; i++){
+                    if (!(board[i+k][i+j+k].isEmpty())){
+                        if (board[i+k][i+j+k].getSlot() == color){
+                            count++;
+                        }
                     }
-                    else {
-                        count = 0;
-                    }
+                }
+                if (count == 5){
+                    return true;
                 }
             }
         }

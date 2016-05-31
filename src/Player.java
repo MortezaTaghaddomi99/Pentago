@@ -3,9 +3,6 @@ import java.util.Scanner;
 public class Player {
     private final Slot.SlotType color;
 
-    public Player(String color){
-        this.color = Slot.SlotType.fromString(color);
-    }
     public Player(Slot.SlotType slot) {this.color = slot; }
 
     public Slot play(){
@@ -16,48 +13,45 @@ public class Player {
                                                                     "\"dr\" for down right.");
         String input1 = scanner1.next();
 
-        if (input1.equalsIgnoreCase("ul")){
-
-        }
-        else if (input1.equalsIgnoreCase("ur")){
-
-        }
-        else if (input1.equalsIgnoreCase("dl")){
-
-        }
-        else if (input1.equalsIgnoreCase("dr")){
-
+        if (Slot.Quadrant.fromString(input1) != Slot.Quadrant.ERROR){
+            return chooseCoord(Slot.Quadrant.fromString(input1));
         }
         else {
             System.out.println("That is not a valid input.");
             return play();
         }
-        return play();
     }
 
-    public Slot chooseCoord(){
+    public Slot chooseCoord(Slot.Quadrant quadrant){
         Scanner scanner2 = new Scanner(System.in);
         System.out.println("Which slot do want to play in? Type a pair of x and y coordinates between 0 and 2 inclusive, separated by a space.");
 
-        int x_input = 0;
-        int y_input = 0;
+        int x_input = -1;
 
-        if((scanner2.hasNextInt()) && ((scanner2.nextInt() >= 0 || scanner2.nextInt() <= 2))){
+        if (scanner2.hasNextInt()){
             x_input = scanner2.nextInt();
         }
-        else {
+        if(!((x_input >= 0 || x_input <= 2))){
             System.out.println("That is not a valid x coordinate.");
             return play();
         }
 
-        if((scanner2.hasNextInt()) && ((scanner2.nextInt() >= 0 || scanner2.nextInt() <= 2))){
+        int y_input = -1;
+
+        if (scanner2.hasNextInt()){
             y_input = scanner2.nextInt();
         }
-        else {
+        if(!((y_input >= 0 || y_input <= 2))){
             System.out.println("That is not a valid y coordinate.");
             return play();
-
         }
+
+        if (x_input >= 0 && y_input >= 0){
+            Slot newSlot = new Slot(x_input, y_input, quadrant);
+            newSlot.color(color);
+            return newSlot;
+        }
+
         return play();
     }
 

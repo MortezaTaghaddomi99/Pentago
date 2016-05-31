@@ -19,14 +19,26 @@ public class Game {
     }
 
     public Game(){
-        Scanner scanner = new Scanner(System.in);
         board = new Board();
         System.out.println("The game is starting now.");
+        playerSelect();
 
+    }
+
+    public void playerSelect(){
         System.out.println("Player 1, pick your color.");
+        Scanner scanner = new Scanner(System.in);
         String color = scanner.next();
-        one = new Player(color);
-        two = new Player(Slot.SlotType.flip(one.getColor()));
+        if (Slot.SlotType.fromString(color) != Slot.SlotType.ERROR){
+            one = new Player(Slot.SlotType.fromString(color));
+            two = new Player(Slot.SlotType.flip(one.getColor()));
+        }
+        else {
+            System.out.println("Please choose a valid color.");
+            playerSelect();
+            return;
+        }
+        return;
     }
 
     public void play(){
@@ -38,9 +50,12 @@ public class Game {
                 return;
             }
             if (turnCounter%2 == 0){
-                one.play();
+                System.out.println("Player one will play now.");
+                Slot input = one.play();
+                board.setCornerSlot(input);
             }
             else {
+                System.out.println("Player two will play now.");
                 two.play();
             }
             isWonOne = board.isWon(one);

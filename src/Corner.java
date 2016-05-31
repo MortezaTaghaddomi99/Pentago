@@ -1,25 +1,16 @@
 public class Corner {
     private Slot[][] slots;
+    private Slot.Quadrant quadrant;
 
-    public Corner(){
-        slots = new Slot[3][3];
+    public Corner(Slot.Quadrant q){
+        this.slots = new Slot[3][3];
+        this.quadrant = q;
+
         for (int i = 0; i < slots.length; i++){
             for (int j = 0; j < slots[0].length; j++){
-                slots[i][j] = new Slot(i, j);
+                slots[i][j] = new Slot(i, j, quadrant);
             }
         }
-    }
-
-    public int getSize(){
-        return slots.length;
-    }
-
-    public Slot getSlot(int x, int y){
-        return slots[x][y];
-    }
-
-    public void setSlot(Slot slot, int x, int y){
-        slots[x][y] = slot;
     }
 
     //rotates 3x3 grid counterclockwise
@@ -43,4 +34,15 @@ public class Corner {
         }
         slots = temp;
     }
+
+    public int getSize(){
+        return slots.length;
+    }
+
+    public Slot getSlot(int x, int y){
+        return slots[x][y];
+    }
+
+    public void setSlot(Slot slot){slots[slot.getX_coord()][slot.getY_coord()] = slot;}
+
 }
