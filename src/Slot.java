@@ -1,24 +1,24 @@
 public class Slot {
     private SlotType color;
-    private Quadrant quadrant;
+    private Corner corner;
     private int x_coord;
     private int y_coord;
 
-    public Slot(int x, int y, Quadrant q){
+    public Slot(int x, int y, Corner q){
         this.color = SlotType.EMPTY;
-        this.quadrant = q;
+        this.corner = q;
         this.x_coord = x;
         this.y_coord = y;
     }
 
-    public enum Quadrant {
+    public enum Corner {
         ERROR,
         UL,
         UR,
         DL,
         DR;
 
-        public static Quadrant fromString(String str){
+        public static Corner fromString(String str){
             if (str.equalsIgnoreCase("ul")){
                 return UL;
             }
@@ -71,7 +71,7 @@ public class Slot {
 
     public boolean isEmpty(){ return (this.color == SlotType.EMPTY); }
 
-    public Quadrant getQuadrant() { return this.quadrant; }
+    public Corner getCorner() { return this.corner; }
 
     public int getX_coord(){
         return this.x_coord;

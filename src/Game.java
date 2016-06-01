@@ -52,13 +52,27 @@ public class Game {
             if (turnCounter%2 == 0){
                 System.out.println("Player one will play now.");
                 Slot input = one.play();
-                board.setCornerSlot(input);
+                if (board.getCornerSlot(input).isEmpty()){
+                    board.setCornerSlot(input);
+                }
+                else {
+                    System.out.println("That slot is already taken.");
+                    one.play();
+                }
+                board.rotate(input.getCorner());
                 board.turn();
             }
             else {
                 System.out.println("Player two will play now.");
                 Slot input = two.play();
-                board.setCornerSlot(input);
+                if (board.getCornerSlot(input).isEmpty()){
+                    board.setCornerSlot(input);
+                }
+                else {
+                    System.out.println("That slot is already taken.");
+                    two.play();
+                }
+                board.rotate(input.getCorner());
                 board.turn();
             }
             isWonOne = board.isWon(one);
