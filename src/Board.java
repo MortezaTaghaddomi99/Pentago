@@ -154,7 +154,7 @@ public class Board {
         //check rows
         for (int i = 0; i < board.length; i++){
             count = 0;
-            for (int j = 0; j < board.length - 1; j++){
+            for (int j = 0; j < board.length; j++){
                 if (board[i][j].getSlot() == color){
                     count++;
                 }
@@ -170,7 +170,7 @@ public class Board {
         //check verticals
         for (int i = 0; i < board.length; i++){
             count = 0;
-            for (int j = 0; j < board.length - 1; j++){
+            for (int j = 0; j < board.length; j++){
                 if (board[j][i].getSlot() == color){
                     count++;
                 }
